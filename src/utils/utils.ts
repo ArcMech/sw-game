@@ -1,5 +1,4 @@
-export const getRandomNumber = (min: number, max: number) => {
-  const minimal = Math.ceil(min)
+export const getRandomNumber = (max: number) => {
   const maximal = Math.floor(max)
-  return Math.floor(Math.random() * (maximal - minimal + 1)) + minimal
+  return Math.floor(Math.random() * (maximal - 1 + 1)) + 1
 }

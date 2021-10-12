@@ -1,25 +1,52 @@
-import { Grid } from '@mui/material'
-import { Button } from '@mui/material'
+import { useState } from 'react'
+import {
+  Button,
+  Box,
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormControl,
+} from '@mui/material'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { Layout } from 'layouts'
-import { CardComponent } from 'components'
+import { Playground } from 'components'
+import { ResourceType } from 'types'
 import { useGetApi } from 'hooks'
-import { getRandomNumber } from 'utils'
 
 const App = () => {
-  const data = useGetApi('starships')
+  const [resource, setResource] = useState('people')
+  const firstData = useGetApi(resource as ResourceType)
+  const secondData = useGetApi(resource as ResourceType)
 
-  const dar = getRandomNumber(1, 82)
-
-  console.log(`dar`, dar)
+  const handleChange = (event: SelectChangeEvent) => {
+    setResource(event.target.value as string)
+  }
 
   return (
     <Layout>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={6}>
-          <CardComponent />
-        </Grid>
-        <Grid item xs={6}>
-          <CardComponent />
+      <Grid container spacing={2}>
+        <Playground firstCardData={firstData} secondCardData={secondData} />
+        <Grid
+          item
+          xs={12}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box sx={{ maxWidth: 240 }}>
+            <FormControl fullWidth>
+              <InputLabel>Resource</InputLabel>
+              <Select
+                value={resource}
+                label="Resource"
+                onChange={handleChange}
+                color="info"
+              >
+                <MenuItem value="starships">Starships</MenuItem>
+                <MenuItem value="people">People</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         </Grid>
         <Grid
           item

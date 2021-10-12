@@ -1,1 +1,1 @@
-export * from './CardComponent'
+export * from './PersonCard'
